@@ -4,8 +4,7 @@
 
     <header class="site-header" :class="{ 'is-scrolled': scrolled }">
       <a class="brand" href="#home" aria-label="豆是 being 首页" @click="closeMenu">
-        <span class="brand-symbol" aria-hidden="true"></span>
-        <span class="brand-name"><b>豆是</b> being</span>
+        <img src="/assets/logo.png" class="brand-logo" alt="">
       </a>
 
       <button class="menu-toggle" type="button" :aria-expanded="menuOpen" aria-controls="main-navigation" aria-label="打开导航" @click="menuOpen = !menuOpen">
@@ -33,20 +32,17 @@
             也记录那些发生在咖啡时间里的阅读、工作、发呆、思考与相遇。
           </p>
           <div class="hero-actions">
-            <button class="qr-button" type="button" aria-label="查看豆是小程序码" @click="qrOpen = !qrOpen">
-              <img src="/assets/being-qr.jpg" alt="豆是微信小程序码" />
-              <span class="qr-pulse" aria-hidden="true"></span>
-            </button>
+            <img class="hero-actions-image" src="/assets/being-qr.jpg" alt="豆是微信小程序码" />
             <button class="pill-button" type="button" @click="openContact"><span>contact us</span><i aria-hidden="true">↗</i></button>
           </div>
           <transition name="qr-tip"><p v-if="qrOpen" class="qr-hint">微信扫码，进入豆是小程序</p></transition>
         </div>
 
         <div class="hero-visual reveal delay-1" aria-label="豆是小程序界面展示">
-          <div class="hero-halo" aria-hidden="true"></div>
+          <!-- <div class="hero-halo" aria-hidden="true"></div> -->
           <img src="/assets/being-hero.png" alt="豆是小程序登录界面" />
-          <span class="orbit orbit-one" aria-hidden="true"></span>
-          <span class="orbit orbit-two" aria-hidden="true"></span>
+          <!-- <span class="orbit orbit-one" aria-hidden="true"></span> -->
+          <!-- <span class="orbit orbit-two" aria-hidden="true"></span> -->
         </div>
       </section>
 
@@ -61,31 +57,33 @@
         <div class="journey-flow reveal delay-1">
           <template v-for="(item, index) in journey" :key="item.title">
             <button class="journey-step" :class="{ active: activeJourney === index }" type="button" @mouseenter="activeJourney = index" @focus="activeJourney = index" @click="activeJourney = index">
-              <span class="journey-icon" :class="`icon-${item.title}`" aria-hidden="true"><i v-if="item.title === 'brewing'"></i></span>
+              <img class="journey-step-image" :src="`/assets/step${index+1}.png`" alt="">
               <strong>{{ item.title }}</strong>
               <span>{{ item.copy[0] }}<br />{{ item.copy[1] }}</span>
             </button>
-            <span v-if="index < journey.length - 1" class="journey-arrow" aria-hidden="true">→</span>
+            <span v-if="index < journey.length - 1" class="journey-arrow" aria-hidden="true">
+              <img src="/assets/arrow.png" alt="">
+            </span>
           </template>
-        </div>
-        <div class="journey-detail reveal" aria-live="polite">
-          <span>{{ journey[activeJourney].number }}</span>
-          <p>{{ journey[activeJourney].detail }}</p>
         </div>
       </section>
 
       <div class="dot-divider" aria-hidden="true"><span v-for="dot in 44" :key="dot"></span></div>
 
       <section id="ecosystem" class="belief section-pad">
-        <div class="bracket bracket-left reveal" aria-hidden="true"></div>
+        <div class="bracket">
+          <img src="/assets/left.png" alt="">
+        </div>
         <h2 class="reveal delay-1">我们相信，世界可以从很小的地方变好。<br />一颗豆子，一杯咖啡，一个被认真记录的日常。</h2>
-        <div class="bracket bracket-right reveal" aria-hidden="true"></div>
+        <div class="bracket">
+          <img src="/assets/right.png" alt="">
+        </div>
       </section>
 
       <section id="about" class="about section-pad">
         <article class="about-copy reveal">
-          <div class="glyph-row" aria-hidden="true">
-            <span class="glyph glyph-bean"></span><span class="glyph glyph-lines"></span><span class="glyph glyph-plus"></span><span class="glyph glyph-brackets"></span><span class="glyph glyph-person"></span>
+          <div class="glyph-row">
+            <img src="/assets/tab.png" alt="">
           </div>
           <p>
             每一支豆子都有属于自己的风土与故事，每一个人也拥有独一无二的轨迹与此刻。<br />
@@ -101,20 +99,25 @@
 
         <figure id="journal" class="about-image reveal delay-1">
           <div class="image-frame">
-            <img src="/assets/being-life.jpg" alt="一位正在安静制作咖啡的人" />
-            <div class="image-wash" aria-hidden="true"></div><span class="image-mark" aria-hidden="true">◎</span>
+            <img class="journal-image" src="/assets/being-life.jpg" alt="一位正在安静制作咖啡的人" />
+            <img class="journal-icon" src="/assets/icon-white.png" alt="">
           </div>
-          <figcaption><span>being journal · 001</span><span>把时间还给一杯咖啡</span></figcaption>
         </figure>
       </section>
     </main>
 
     <footer class="site-footer section-pad">
-      <p class="preference">我们偏爱：被整理过的世界；有边界的生活；不粗暴的服务；安静但清楚的判断；能让人向上走一点的日常秩序；把生活过得更像样的努力。◎</p>
+      <p class="preference">
+        我们偏爱：被整理过的世界；有边界的生活；不粗暴的服务；安静但清楚的判断；能让人向上走一点的日常秩序；把生活过得更像样的努力。
+        <img class="preference-icon" src="/assets/icon-black.png" alt="">
+      </p>
       <div class="footer-row">
-        <a class="creative" href="#home" aria-label="beingcreative 回到首页"><span class="creative-mark" aria-hidden="true">∞</span> beingcreative</a>
+        <a class="creative" href="#home" aria-label="beingcreative 回到首页">
+        <img src="/assets/copyright.png" alt="">
+        beingcreative
+        </a>
         <p>Copyright © 2026 Beijing Being Culture Technology Co., Ltd.</p>
-        <button type="button" @click="openContact">✉ contact us：beingofficial@bean2being.com</button>
+        <a href="mailto:beingofficial@bean2being.com" class="email"><img class="email-icon" src="/assets/email.png" alt="" /> contact us：beingofficial@bean2being.com</a>
       </div>
     </footer>
 
