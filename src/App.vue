@@ -3,49 +3,52 @@
     <div class="scroll-progress" :style="{ transform: `scaleX(${scrollProgress})` }" aria-hidden="true"></div>
 
     <header class="site-header" :class="{ 'is-scrolled': scrolled }">
-      <a class="brand" href="#home" aria-label="豆是 being 首页" @click="closeMenu">
-        <img src="/assets/logo.png" class="brand-logo" alt="">
-      </a>
+      <div class="site-header-inner">
+        <a class="brand" href="#home" aria-label="豆是 being 首页" @click="closeMenu">
+          <img src="/assets/logo.png" class="brand-logo" alt="">
+        </a>
 
-      <button class="menu-toggle" type="button" :aria-expanded="menuOpen" aria-controls="main-navigation" aria-label="打开导航" @click="menuOpen = !menuOpen">
-        <span></span><span></span>
-      </button>
+        <button class="menu-toggle" type="button" :aria-expanded="menuOpen" aria-controls="main-navigation" aria-label="打开导航" @click="menuOpen = !menuOpen">
+          <span></span><span></span>
+        </button>
 
-      <nav id="main-navigation" class="main-nav" aria-label="主导航">
-        <a href="#home" @click="closeMenu">home</a>
-        <a href="#product" @click="closeMenu">product</a>
-        <a href="#ecosystem" @click="closeMenu">ecosystem</a>
-        <a href="#about" @click="closeMenu">about</a>
-        <a href="#journal" @click="closeMenu">journal</a>
-        <button type="button" @click="openContact">join</button>
-      </nav>
+        <nav id="main-navigation" class="main-nav" aria-label="主导航">
+          <a href="#home" @click="closeMenu">home</a>
+          <a href="#product" @click="closeMenu">product</a>
+          <a href="#ecosystem" @click="closeMenu">ecosystem</a>
+          <a href="#about" @click="closeMenu">about</a>
+          <a href="#journal" @click="closeMenu">journal</a>
+          <button type="button" @click="openContact">join</button>
+        </nav>
+      </div>
     </header>
 
     <main>
       <section id="home" class="hero section-pad" @pointermove="onHeroMove" @pointerleave="resetHeroMove">
-        <div class="hero-copy reveal">
-          <p class="kicker">bean · brewing · being</p>
-          <h1>记录咖啡，也记录此刻。</h1>
-          <p class="hero-description">
-            豆是（Bean·Brewing·Being）是一款以咖啡为起点的记录与分享平台。<br />
-            在这里，我们记录一支豆子的产地与风味，记录一杯咖啡的冲煮与变化，<br />
-            也记录那些发生在咖啡时间里的阅读、工作、发呆、思考与相遇。
-          </p>
-          <div class="hero-actions">
-            <img class="hero-actions-image" src="/assets/being-qr.jpg" alt="豆是微信小程序码" />
-            <button class="pill-button" type="button" @click="openContact"><span>contact us</span><i aria-hidden="true">↗</i></button>
+        <div class="hero-inner">
+          <div class="hero-copy reveal">
+           <img class="hero-kicker" src="/assets/bean-brewing-being.png" alt="bean · brewing · being" />
+            <p class="hero-description">
+              豆是（Bean · Brewing · Being）是一款以咖啡为起点的记录与分享平台。<br />
+              在这里，我们记录一支豆子的产地与风味，记录一杯咖啡的冲煮与变化，<br />
+              也记录那些发生在咖啡时间里的阅读、工作、发呆、思考与相遇。
+            </p>
+            <div class="hero-actions">
+              <button class="pill-button" type="button" @click="openContact">contact us</button>
+              <button class="pill-button border-button" type="button" @click="openContact">open beta</button>
+            </div>
+            <transition name="qr-tip"><p v-if="qrOpen" class="qr-hint">微信扫码，进入豆是小程序</p></transition>
           </div>
-          <transition name="qr-tip"><p v-if="qrOpen" class="qr-hint">微信扫码，进入豆是小程序</p></transition>
-        </div>
 
-        <div class="hero-visual reveal delay-1" aria-label="豆是小程序界面展示">
-          <img src="/assets/being-hero.png" alt="豆是小程序登录界面" />
+          <div class="hero-visual reveal delay-1" aria-label="豆是小程序界面展示">
+            <img src="/assets/being-hero.png" alt="豆是小程序登录界面" />
+          </div>
         </div>
       </section>
 
       <section class="word-field" aria-label="与咖啡有关的生活关键词">
-        <div class="word-track" aria-hidden="true">
-          <span v-for="(word, index) in fieldWords" :key="`${word}-${index}`" :class="{ accent: index === 34 }">（{{ word }}）</span>
+        <div ref="wordTrackRef" class="word-track" aria-hidden="true">
+          <span v-for="(word, index) in displayedWords" :key="`${word}-${index}`">（{{ word }}）</span>
         </div>
       </section>
 
@@ -136,6 +139,7 @@
 
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { fieldWords } from './fieldWords.js'
 
 const menuOpen = ref(false)
 const contactOpen = ref(false)
@@ -144,15 +148,60 @@ const scrolled = ref(false)
 const scrollProgress = ref(0)
 const activeJourney = ref(0)
 const dialogRef = ref<HTMLElement | null>(null)
+const wordTrackRef = ref<HTMLElement | null>(null)
+const displayedWords = ref<string[]>([])
+const WORD_FIELD_VISIBLE_LINES = 8
+const WORD_FIELD_LAYOUT_LINES = WORD_FIELD_VISIBLE_LINES + 1
+
+const shuffleWords = (words: readonly string[]) => {
+  const result = [...words]
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[result[i], result[j]] = [result[j], result[i]]
+  }
+  return result
+}
+
+const countWordLines = (track: HTMLElement) => {
+  const tops = new Set<number>()
+  track.querySelectorAll('span').forEach((span) => tops.add((span as HTMLElement).offsetTop))
+  return tops.size
+}
+
+const fitWordsToLines = async (shuffled: string[], lineCount: number) => {
+  const track = wordTrackRef.value
+  if (!track) {
+    displayedWords.value = shuffled.slice(0, 96)
+    return
+  }
+
+  let left = 1
+  let right = shuffled.length
+  let best = 1
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2)
+    displayedWords.value = shuffled.slice(0, mid)
+    await nextTick()
+    if (countWordLines(track) <= lineCount) {
+      best = mid
+      left = mid + 1
+    } else {
+      right = mid - 1
+    }
+  }
+
+  displayedWords.value = shuffled.slice(0, best)
+}
+
+const refreshDisplayedWords = async () => {
+  await fitWordsToLines(shuffleWords(fieldWords), WORD_FIELD_LAYOUT_LINES)
+}
 
 const journey = [
   { number: '01 / bean', title: 'bean', copy: ['一支豆子的产地、', '风味与烘焙'], detail: '从风土开始，记住一支豆子的来处，也记住味觉发生的瞬间。' },
   { number: '02 / brewing', title: 'brewing', copy: ['一杯咖啡的参数、', '变化与感受'], detail: '让水温、研磨、时间与感受彼此连接，冲煮不再只是一组数字。' },
   { number: '03 / being', title: 'being', copy: ['发生在咖啡时间里', '的生活片刻'], detail: '留下阅读、工作、发呆与相遇。咖啡是起点，生活才是被记录的答案。' },
-]
-
-const fieldWords = [
-  '埃塞俄比亚', '发呆', '慢夏', '窗边', '水洗', '蜂蜜', '阅读', '耶加雪菲', '安静', '手冲', '白花', '下午四点', '办公室', '肯尼亚', '黑加仑', '走神', 'SL28', '雨后', 'V60', '专注', '湿里', '红糖', '独处', '明亮', '质感', '旧书店', '哥伦比亚', '写作', '粉菠萝', '蜜桃', '失眠', '咖啡馆', '卡斯蒂略', '柔软', '复购', '晨咖', '巴拿马', '阳台', '翡翠庄园', '留白', '佛手柑', '日晒', '新书', '高海拔', '平静', 'BeanPod', '小圆圈', '白茶', '午后', '葡萄酒感', '一杯拉', '音乐', '橙花', '木桌', '慢慢喝', '家中', '秘鲁', 'Typica', '早餐', '高山产区', '法压', '阴天', '坚果', '翻书', '干净', '温和', '归档', '巴西', '工作台', '黄波旁', '续命', '巧克力', '晨会', '意式', '棒子', '低酸', '奶咖', '熟悉', '第一杯', '云南', '露营', '山野', '日晒', '手写', '橙皮', '普洱', '湿润', '木屋', '沉思', '冰手冲', '海南', '老街', '罗布斯塔', '发呆', '椰糖', '闷热', '冰咖啡', '海风', '深色烘焙', '午后', '潮湿', '停留', '印度尼西亚', '深夜', '曼特宁',
 ]
 
 const closeMenu = () => { menuOpen.value = false }
@@ -189,10 +238,12 @@ watch(contactOpen, async (isOpen) => {
   if (isOpen) { await nextTick(); dialogRef.value?.focus() }
 })
 
-onMounted(() => {
+onMounted(async () => {
   updateScroll()
   window.addEventListener('scroll', updateScroll, { passive: true })
   window.addEventListener('keydown', handleKeydown)
+  await nextTick()
+  await refreshDisplayedWords()
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }
