@@ -123,16 +123,12 @@
       <div v-if="contactOpen" class="contact-layer" role="presentation" @click.self="closeContact">
         <aside ref="dialogRef" class="contact-drawer" role="dialog" aria-modal="true" aria-labelledby="contact-title" tabindex="-1">
           <button class="drawer-close" type="button" aria-label="关闭联系窗口" @click="closeContact">×</button>
-          <div class="drawer-content">
-            <p class="drawer-index">( contact · 01 )</p>
-            <h2 id="contact-title">一起，让日常<br />向上走一点。</h2>
-            <p>品牌合作、内容共创、产品建议，或者只是想聊聊一杯咖啡，都欢迎来信。</p>
-            <a class="email-link" href="mailto:beingofficial@bean2being.com">beingofficial@bean2being.com <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="drawer-bottom">
-            <div class="drawer-qr"><img src="/assets/being-qr.jpg" alt="豆是微信小程序码" /><span>scan to find us<br />on WeChat</span></div>
-            <div class="drawer-dot" aria-hidden="true"></div>
-          </div>
+          <p class="drawer-index">( contact · 01 )</p>
+          <h2 id="contact-title">一起，让日常<br />向上走一点。</h2>
+          <p>品牌合作、内容共创、产品建议，或者只是想聊聊一杯咖啡，都欢迎来信。</p>
+          <a class="email-link" href="mailto:beingofficial@bean2being.com">beingofficial@bean2being.com <span aria-hidden="true">↗</span></a>
+          <div class="drawer-qr"><img src="/assets/being-qr.jpg" alt="豆是微信小程序码" /><span>scan to find us<br />on WeChat</span></div>
+          <div class="drawer-dot" aria-hidden="true"></div>
         </aside>
       </div>
     </transition>
