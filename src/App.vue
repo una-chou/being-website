@@ -12,14 +12,16 @@
           <span></span><span></span>
         </button>
 
-        <nav id="main-navigation" class="main-nav" aria-label="主导航">
-          <a href="#home" @click="closeMenu">home</a>
-          <a href="#product" @click="closeMenu">product</a>
-          <a href="#ecosystem" @click="closeMenu">ecosystem</a>
-          <a href="#about" @click="closeMenu">about</a>
-          <a href="#journal" @click="closeMenu">journal</a>
-          <button type="button" @click="openContact">join</button>
-        </nav>
+        <div class="header-actions">
+          <nav id="main-navigation" class="main-nav" aria-label="主导航">
+            <a href="#home" @click="closeMenu">home</a>
+            <a href="#product" @click="closeMenu">product</a>
+            <a href="#ecosystem" @click="closeMenu">ecosystem</a>
+            <a href="#about" @click="closeMenu">about</a>
+            <a href="#journal" @click="closeMenu">journal</a>
+          </nav>
+          <button class="join-button" type="button" aria-label="加入豆是" @click="openContact">join</button>
+        </div>
       </div>
     </header>
 
