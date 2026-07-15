@@ -60,7 +60,7 @@
           <template v-for="(item, index) in journey" :key="item.title">
             <button class="journey-step" :class="{ active: activeJourney === index }" type="button" @mouseenter="activeJourney = index" @focus="activeJourney = index" @click="activeJourney = index">
               <img class="journey-step-image" :src="`/assets/step${index+1}.png`" alt="">
-              <strong>{{ item.title }}</strong>
+              <span class="journey-step-title">{{ item.title }}</span>
               <span>{{ item.copy[0] }}<br />{{ item.copy[1] }}</span>
             </button>
             <span v-if="index < journey.length - 1" class="journey-arrow" aria-hidden="true">
