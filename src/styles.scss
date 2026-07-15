@@ -402,13 +402,13 @@ img { display: block; max-width: 100%; }
 }
 
 .site-footer {
-  // padding-top: 52px;
+  padding-top: 20px;
   padding-right: max(var(--page-gutter), calc((100vw - var(--word-field-width)) / 2));
   padding-bottom: 34px;
   padding-left: max(var(--page-gutter), calc((100vw - var(--word-field-width)) / 2));
 }
 .preference {
-  margin: 0 0 42px; font-size: clamp(12px, 1vw, 16px); text-align: center;
+  margin: 0 0 28px; font-size: clamp(12px, 1vw, 16px); text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
