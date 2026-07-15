@@ -1,10 +1,36 @@
+@font-face {
+  font-family: "Gravita GEO";
+  src: url("/fonts/gravitageo-light-bf6579288461506.otf") format("opentype");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gravita GEO";
+  src: url("/fonts/gravitageo-regular-bf657928845edb5.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FZ Lan Ting Hei";
+  src: url("/fonts/FZLTHJW.TTF") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --ink: #050505;
   --paper: #fff;
   --yellow: #ffc500;
   --grey: #999;
+  --font-ui: "Gravita GEO", "FZ Lan Ting Hei", "PingFang SC", "Microsoft YaHei", sans-serif;
   color: var(--ink);
   background: var(--paper);
+  font-family: var(--font-ui);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -61,7 +87,7 @@ img { display: block; max-width: 100%; }
 .menu-toggle { display: none; }
 
 .hero {
-  --pointer-x: 0; --pointer-y: 0; display: grid; min-height: 850px; padding-top: 118px;
+  --pointer-x: 0; --pointer-y: 0; display: grid; min-height: 850px; padding-top: 80px;
   grid-template-columns: minmax(0, 1.02fr) minmax(420px, .98fr); align-items: center;
 }
 .hero-copy { position: relative; z-index: 2; padding: 72px 0 38px; }
@@ -95,7 +121,7 @@ img { display: block; max-width: 100%; }
   transition: transform .7s cubic-bezier(.22, 1, .36, 1);
 }
 .hero-visual img {
-  position: relative; z-index: 2; width: min(690px, 110%); max-width: none; transform: translateX(3%);
+  position: relative; z-index: 2; width: min(380px, 100%); max-width: none; transform: translateX(3%);
   filter: drop-shadow(0 22px 28px rgb(0 0 0 / 9%)); animation: phone-float 7s ease-in-out infinite;
 }
 
@@ -175,7 +201,12 @@ img { display: block; max-width: 100%; }
   display: grid; min-height: 790px; padding-top: 90px; padding-bottom: 120px;
   grid-template-columns: 1.04fr .96fr; gap: clamp(60px, 8vw, 150px); align-items: center;
 }
-.glyph-row { height: 40px; margin-bottom: 38px; }
+.glyph-row { height: 40px; margin-bottom: 38px; 
+  img {
+    height: 40px;
+    width: max-content;
+  }
+}
 .about-copy > p { margin: 0; font-size: clamp(14px, 1.12vw, 18px); line-height: 2.08; }
 .about-copy .about-en {
   margin-top: 26px; color: var(--grey);

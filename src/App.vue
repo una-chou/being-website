@@ -39,10 +39,7 @@
         </div>
 
         <div class="hero-visual reveal delay-1" aria-label="豆是小程序界面展示">
-          <!-- <div class="hero-halo" aria-hidden="true"></div> -->
           <img src="/assets/being-hero.png" alt="豆是小程序登录界面" />
-          <!-- <span class="orbit orbit-one" aria-hidden="true"></span> -->
-          <!-- <span class="orbit orbit-two" aria-hidden="true"></span> -->
         </div>
       </section>
 
