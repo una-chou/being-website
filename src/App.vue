@@ -1,5 +1,5 @@
 <template>
-  <div class="site-shell" :class="{ 'menu-is-open': menuOpen }">
+  <div class="site-shell" :class="{ 'menu-is-open': menuOpen, 'intro-ready': introReady }">
     <div class="scroll-progress" :style="{ transform: `scaleX(${scrollProgress})` }" aria-hidden="true"></div>
 
     <header class="site-header" :class="{ 'is-scrolled': scrolled }">
@@ -143,6 +143,7 @@ const menuOpen = ref(false)
 const contactOpen = ref(false)
 const qrOpen = ref(false)
 const scrolled = ref(false)
+const introReady = ref(false)
 const scrollProgress = ref(0)
 const activeJourney = ref(0)
 const dialogRef = ref<HTMLElement | null>(null)
@@ -151,6 +152,7 @@ const displayedWords = ref<string[]>([])
 const WORD_FIELD_VISIBLE_LINES = 8
 const WORD_FIELD_LAYOUT_LINES = WORD_FIELD_VISIBLE_LINES + 1
 let wordFieldResizeTimer: number | undefined
+let introFrame = 0
 
 const shuffleWords = (words: readonly string[]) => {
   const result = [...words]
@@ -256,12 +258,14 @@ onMounted(async () => {
     })
   }, { threshold: 0.14, rootMargin: '0px 0px -7% 0px' })
   document.querySelectorAll('.reveal').forEach((element) => observer.observe(element))
+  introFrame = window.requestAnimationFrame(() => { introReady.value = true })
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', updateScroll)
   window.removeEventListener('keydown', handleKeydown)
   window.removeEventListener('resize', handleWordFieldResize)
+  window.cancelAnimationFrame(introFrame)
   window.clearTimeout(wordFieldResizeTimer)
   document.body.classList.remove('no-scroll')
 })
