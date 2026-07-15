@@ -348,7 +348,7 @@ img { display: block; max-width: 100%; }
   padding-right: max(var(--page-gutter), calc((100vw - var(--word-field-width)) / 2));
   padding-left: max(var(--page-gutter), calc((100vw - var(--word-field-width)) / 2));
 }
-.dot-divider span { width: 7px; height: 9px; border-radius: 4px; background: rgb(5 5 5 / 60%); animation: dots-wave 4.4s ease-in-out infinite; }
+.dot-divider span { width: 5px; height: 7px; border-radius: 4px; background: rgb(5 5 5 / 60%); animation: dots-wave 4.4s ease-in-out infinite; }
 .dot-divider span:nth-child(even) { background: var(--yellow); }
 .dot-divider span:nth-child(5n) { animation-delay: -1.2s; }
 .dot-divider span:nth-child(7n) { animation-delay: -2.6s; }
