@@ -95,8 +95,7 @@
 
         <figure id="journal" class="about-image reveal delay-1">
           <div class="image-frame">
-            <img class="journal-image" src="/assets/being-life.jpg" alt="一位正在安静制作咖啡的人" />
-            <img class="journal-icon" src="/assets/icon-white.png" alt="">
+            <img class="journal-image" src="/assets/being-life.png" alt="一位正在安静制作咖啡的人" />
           </div>
         </figure>
       </section>
