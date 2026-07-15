@@ -154,6 +154,7 @@ const wordTrackRef = ref<HTMLElement | null>(null)
 const displayedWords = ref<string[]>([])
 const WORD_FIELD_VISIBLE_LINES = 8
 const WORD_FIELD_LAYOUT_LINES = WORD_FIELD_VISIBLE_LINES + 1
+let wordFieldResizeTimer: number | undefined
 
 const shuffleWords = (words: readonly string[]) => {
   const result = [...words]
@@ -198,6 +199,11 @@ const fitWordsToLines = async (shuffled: string[], lineCount: number) => {
 
 const refreshDisplayedWords = async () => {
   await fitWordsToLines(shuffleWords(fieldWords), WORD_FIELD_LAYOUT_LINES)
+}
+
+const handleWordFieldResize = () => {
+  window.clearTimeout(wordFieldResizeTimer)
+  wordFieldResizeTimer = window.setTimeout(refreshDisplayedWords, 120)
 }
 
 const journey = [
@@ -246,6 +252,8 @@ onMounted(async () => {
   window.addEventListener('keydown', handleKeydown)
   await nextTick()
   await refreshDisplayedWords()
+  document.fonts?.ready.then(refreshDisplayedWords)
+  window.addEventListener('resize', handleWordFieldResize)
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }
@@ -257,6 +265,8 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', updateScroll)
   window.removeEventListener('keydown', handleKeydown)
+  window.removeEventListener('resize', handleWordFieldResize)
+  window.clearTimeout(wordFieldResizeTimer)
   document.body.classList.remove('no-scroll')
 })
 </script>
