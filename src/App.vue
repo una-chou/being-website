@@ -107,12 +107,15 @@
         <img class="preference-icon" src="/assets/icon-black.png" alt="">
       </p>
       <div class="footer-row">
-        <a class="creative" href="#home" aria-label="beingcreative 回到首页">
-        <img src="/assets/copyright.png" alt="">
-        beingcreative
-        </a>
-        <p>Copyright © 2026 Beijing Being Culture Technology Co., Ltd.</p>
-        <a href="mailto:beingofficial@bean2being.com" class="email"><img class="email-icon" src="/assets/email.png" alt="" /> contact us：beingofficial@bean2being.com</a>
+        <div class="footer-left">
+          <a class="creative" href="#home" aria-label="beingcreative 回到首页">
+          <img src="/assets/copyright.png" alt="">
+          beingcreative
+          </a>
+          <p>Copyright © 2026 Beijing Being Culture Technology Co., Ltd.</p>
+        </div>
+        <p class="footer-icp">京ICP备2026038880号</p>
+        <a href="mailto:beingofficial@bean2being.com" class="email"><img class="email-icon" src="/assets/email.png" alt="" /> contact us: beingofficial@bean2being.com</a>
       </div>
     </footer>
 
