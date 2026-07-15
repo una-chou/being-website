@@ -421,15 +421,16 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: nowrap;
   gap: 12px clamp(18px, 2vw, 28px);
   font-size: 14px;
 }
 .footer-left {
   display: flex;
-  flex: 1 1 0;
-  min-width: 0;
+  flex: 0 0 auto;
   align-items: center;
   gap: clamp(18px, 2vw, 28px);
+  white-space: nowrap;
 }
 .creative {
   font-size: 18px; font-weight: 700;
@@ -449,10 +450,9 @@ img { display: block; max-width: 100%; }
 }
 .email {
   display: flex;
-  flex: 1 1 0;
+  flex: 0 0 auto;
   align-items: center;
-  justify-content: flex-end;
-  min-width: 0;
+  white-space: nowrap;
   .email-icon {
     height: 16px;
     margin-right: 10px;
