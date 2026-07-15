@@ -73,13 +73,7 @@
       <div class="dot-divider" aria-hidden="true"><span v-for="dot in 44" :key="dot"></span></div>
 
       <section id="ecosystem" class="belief section-pad">
-        <div class="bracket">
-          <img src="/assets/left.png" alt="">
-        </div>
         <h2 class="reveal delay-1">我们相信，世界可以从很小的地方变好。<br />一颗豆子，一杯咖啡，一个被认真记录的日常。</h2>
-        <div class="bracket">
-          <img src="/assets/right.png" alt="">
-        </div>
       </section>
 
       <section id="about" class="about section-pad">
