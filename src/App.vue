@@ -49,7 +49,7 @@
       </section>
 
       <section class="word-field" aria-label="与咖啡有关的生活关键词">
-        <div ref="wordTrackRef" class="word-track" aria-hidden="true">
+        <div ref="wordTrackRef" class="word-track scroll-effect" aria-hidden="true">
           <span v-for="(word, index) in displayedWords" :key="`${word}-${index}`">（{{ word }}）</span>
         </div>
       </section>
@@ -252,12 +252,17 @@ onMounted(async () => {
   await refreshDisplayedWords()
   document.fonts?.ready.then(refreshDisplayedWords)
   window.addEventListener('resize', handleWordFieldResize)
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }
-    })
-  }, { threshold: 0.14, rootMargin: '0px 0px -7% 0px' })
-  document.querySelectorAll('.reveal').forEach((element) => observer.observe(element))
+  const animatedElements = document.querySelectorAll('.reveal, .scroll-effect')
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }
+      })
+    }, { threshold: 0.14, rootMargin: '0px 0px -7% 0px' })
+    animatedElements.forEach((element) => observer.observe(element))
+  } else {
+    animatedElements.forEach((element) => element.classList.add('is-visible'))
+  }
   introFrame = window.requestAnimationFrame(() => { introReady.value = true })
 })
 
