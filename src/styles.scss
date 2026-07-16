@@ -47,7 +47,7 @@ button { border: 0; }
 a { text-decoration: none; }
 button, a[href] { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 5px; }
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; height: auto; }
 
 .site-shell { position: relative; overflow: hidden; overflow: clip; background: var(--paper); }
 .section-pad {
@@ -193,8 +193,12 @@ img { display: block; max-width: 100%; }
 
 .hero-kicker {
   margin-bottom: 30px;
-  height: 85px;
-  width: max-content;
+  width: 419px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+  flex: 0 0 auto;
 }
 
 .hero-copy {
@@ -403,15 +407,21 @@ img { display: block; max-width: 100%; }
 .bracket { width: 44px; height: 141px; }
 
 .about {
-  display: grid; padding-bottom: 120px;
+  display: grid; min-height: 0; padding-bottom: 120px;
   padding-right: max(var(--page-gutter), calc((100vw - var(--word-field-width)) / 2));
   padding-left: max(var(--page-gutter), calc((100vw - var(--word-field-width)) / 2));
   grid-template-columns: 1.04fr .96fr; gap: 50px; align-items: center;
 }
+.about-copy,
+.about-image {
+  min-width: 0;
+}
 .glyph-row { height: 40px; margin-bottom: 20px;
   img {
     height: 30px;
-    width: min-content;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
   }
 }
 .about-copy > p { margin: 0; font-size: clamp(12px, 1.12vw, 14px); line-height: 1.8; }
@@ -421,9 +431,10 @@ img { display: block; max-width: 100%; }
   font-family: "GravitaGEO-Light";
 }
 .about-image { margin: 0; }
-.image-frame { position: relative; }
+.image-frame { position: relative; width: 100%; min-width: 0; }
 .image-frame .journal-image {
-  width: 100%; height: max-content;
+  width: 100%;
+  height: auto;
   transition: transform 1.2s cubic-bezier(.22, 1, .36, 1), filter .8s ease;
   object-fit: contain;
   border-radius: 24px;
