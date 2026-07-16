@@ -597,15 +597,13 @@ img { display: block; max-width: 100%; height: auto; }
     padding: 18px;
     border: 1px solid rgb(5 5 5 / 8%);
     border-radius: 22px;
-    background: rgb(255 255 255 / 88%);
-    box-shadow: 0 18px 45px rgb(0 0 0 / 9%);
+    background: #fff;
+    box-shadow: 0 18px 45px rgb(0 0 0 / 12%);
     opacity: 0;
     pointer-events: none;
     transform: translate3d(0, -10px, 0);
     transition: opacity .28s ease, transform .35s cubic-bezier(.22, 1, .36, 1), visibility .28s ease;
     visibility: hidden;
-    -webkit-backdrop-filter: blur(18px);
-    backdrop-filter: blur(18px);
   }
 
   .menu-is-open .header-actions {
@@ -629,6 +627,7 @@ img { display: block; max-width: 100%; height: auto; }
     min-height: 38px;
     align-items: center;
     border-bottom: 1px solid rgb(5 5 5 / 7%);
+    color: var(--ink);
     font-size: 13px;
   }
 
@@ -665,6 +664,9 @@ img { display: block; max-width: 100%; height: auto; }
   .hero-description {
     font-size: 15px;
     line-height: 1.85;
+    text-align: justify;
+    text-align-last: left;
+    text-justify: inter-ideograph;
   }
 
   .hero-description br {
@@ -689,6 +691,7 @@ img { display: block; max-width: 100%; height: auto; }
     width: 100%;
     flex: none;
     justify-content: center;
+    margin-top: 40px;
     margin-left: 0;
   }
 
@@ -704,9 +707,12 @@ img { display: block; max-width: 100%; height: auto; }
   }
 
   .word-track {
+    display: flex;
+    flex-wrap: wrap;
     height: calc(10.8em + 28px);
+    align-content: flex-start;
     justify-content: flex-start;
-    column-gap: 9px;
+    column-gap: 0px;
     row-gap: 3px;
   }
 
@@ -716,20 +722,24 @@ img { display: block; max-width: 100%; height: auto; }
   }
 
   .journey-title {
-    font-size: clamp(32px, 11vw, 48px);
-    text-align: left;
+    font-size: clamp(22px, 6.7vw, 30px);
+    letter-spacing: -.045em;
+    text-align: center;
+    white-space: nowrap;
   }
 
   .journey-flow {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 24px;
     margin-top: 46px;
   }
 
   .journey-step {
-    align-items: flex-start;
-    text-align: left;
+    width: 100%;
+    align-items: center;
+    text-align: center;
   }
 
   .journey-step-image {
@@ -745,11 +755,16 @@ img { display: block; max-width: 100%; height: auto; }
     margin-top: 16px;
     font-size: 15px;
     line-height: 1.6;
+    white-space: nowrap;
+  }
+
+  .journey-step > span:last-child br {
+    display: none;
   }
 
   .journey-arrow {
     height: 20px;
-    justify-content: flex-start;
+    justify-content: center;
 
     img {
       height: 26px;
@@ -801,6 +816,9 @@ img { display: block; max-width: 100%; height: auto; }
   .about-copy > p {
     font-size: 13px;
     line-height: 1.88;
+    text-align: justify;
+    text-align-last: left;
+    text-justify: inter-ideograph;
   }
 
   .about-copy > p br {
@@ -811,6 +829,8 @@ img { display: block; max-width: 100%; height: auto; }
     margin-top: 18px;
     font-size: 12px;
     line-height: 1.72;
+    text-align: justify;
+    text-align-last: left;
   }
 
   .image-frame .journal-image {
@@ -840,31 +860,42 @@ img { display: block; max-width: 100%; height: auto; }
 
   .footer-row {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 12px;
     font-size: 12px;
+    text-align: center;
   }
 
   .footer-left {
+    width: 100%;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 8px;
     white-space: normal;
+  }
+
+  .footer-left p {
+    text-align: center;
   }
 
   .creative {
     font-size: 16px;
   }
 
-  .footer-icp {
+  .footer-row .footer-icp {
+    width: 100%;
     font-size: 12px;
+    text-align: center;
   }
 
   .email {
+    width: 100%;
     max-width: 100%;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     white-space: normal;
     line-height: 1.45;
+    text-align: center;
     overflow-wrap: anywhere;
   }
 
